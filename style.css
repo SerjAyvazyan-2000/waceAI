@@ -164,6 +164,8 @@ body {
   text-rendering: optimizeLegibility;
   font-family: "Inter", sans-serif;
   background: var(--bg-color);
+      font-display: swap;
+
 }
 
 .G-flex {
