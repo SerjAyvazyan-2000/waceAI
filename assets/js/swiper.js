@@ -84,28 +84,29 @@ function setupMarquee(selector, pxPerSec = 40, reverse = false) {
   container.classList.add('marquee');
 
   const wrapper = container.querySelector('.swiper-wrapper');
-  const slides  = Array.from(wrapper.children);
+  if (!wrapper) return;
 
-  if (slides.length === 0) return;
+  wrapper.style.animationTimingFunction = 'linear';
+  wrapper.style.animationIterationCount = 'infinite';
+  wrapper.style.willChange = 'transform';
+
+  const baseSlides = Array.from(wrapper.children);
+  if (baseSlides.length === 0) return;
 
   const ensureFilled = () => {
-    const contentWidth = wrapper.scrollWidth;
     const needWidth = container.clientWidth * 2; 
-
-    if (contentWidth < needWidth) {
-      let i = 0;
-      while (wrapper.scrollWidth < needWidth && i < 50) {
-        slides.forEach(slide => {
-          wrapper.appendChild(slide.cloneNode(true));
-        });
-        i++;
-      }
+    let guard = 0;
+    while (wrapper.scrollWidth < needWidth && guard < 50) {
+      baseSlides.forEach(slide => {
+        wrapper.appendChild(slide.cloneNode(true));
+      });
+      guard++;
     }
   };
 
   const applyAnimation = () => {
     const shift = Math.max(wrapper.scrollWidth / 2, container.clientWidth);
-    const duration = shift / pxPerSec; 
+    const duration = shift / pxPerSec;
 
     wrapper.style.setProperty('--shift', `${Math.ceil(shift)}px`);
     wrapper.style.animationDuration = `${duration.toFixed(3)}s`;
@@ -113,29 +114,34 @@ function setupMarquee(selector, pxPerSec = 40, reverse = false) {
   };
 
   const relayout = () => {
-    wrapper.style.animation = 'none';
+    wrapper.style.animationName = 'none';
+    wrapper.offsetHeight;
+
     ensureFilled();
     applyAnimation();
-    requestAnimationFrame(() => {
-      wrapper.style.animationName = 'marquee-scroll';
-    });
+    wrapper.style.animationName = 'marquee-scroll';
   };
 
-  ensureFilled();
-  applyAnimation();
+  relayout();
 
   let resizeTO;
   window.addEventListener('resize', () => {
     clearTimeout(resizeTO);
     resizeTO = setTimeout(relayout, 100);
-  });
+  }, { passive: true });
 
   wrapper.querySelectorAll('img').forEach(img => {
-    if (img.complete) return;
-    img.addEventListener('load', relayout);
-    img.addEventListener('error', relayout);
+    if (!img.complete) {
+      img.addEventListener('load', relayout, { once: true });
+      img.addEventListener('error', relayout, { once: true });
+    }
   });
+
+  if ('ResizeObserver' in window) {
+    const ro = new ResizeObserver(() => relayout());
+    ro.observe(wrapper);
+  }
 }
 
-setupMarquee('.reviews-swiper-first', 40, false);
-setupMarquee('.reviews-swiper-second', 40, true);
+setupMarquee('.reviews-swiper-first', 30, false);
+setupMarquee('.reviews-swiper-second', 30, true);

@@ -28,30 +28,52 @@ updateImages(initialTheme);
 
 
 
-const parallaxBlocks = document.querySelectorAll(".parallax-anim");
+const blocks = document.querySelectorAll(".parallax-anim");
 
-if (parallaxBlocks.length > 0) {
-  window.addEventListener("scroll", () => {
-    if (window.innerWidth < 576) {
-      parallaxBlocks.forEach(block => {
-        const img = block.querySelector("img");
-        img.style.transform = "translate(0, 0)";
-      });
-      return; 
-    }
+if (blocks.length) {
+  const isMobile = () => window.innerWidth < 576;
+  let ticking = false;
 
-    const scrollTop = window.scrollY;
+  const applyParallax = () => {
+    const vh = window.innerHeight;
 
-    parallaxBlocks.forEach((block) => {
+    blocks.forEach(block => {
       const img = block.querySelector("img");
-      const rect = block.getBoundingClientRect();
+      if (!img) return;
 
-      if (rect.top < window.innerHeight && rect.bottom > 0) {
-          const offsetY = rect.top * 0.03;
-        const offsetX = rect.top * 0.015;
-        img.style.transform = `translate(${offsetX}px, ${-offsetY}px)`;
+      if (isMobile()) {
+        img.style.transform = "translate3d(0,0,0)";
+        return;
       }
+
+      const rect = block.getBoundingClientRect();
+      if (rect.bottom <= 0 || rect.top >= vh) return;
+
+      const offsetY = rect.top * 0.03;
+      const offsetX = rect.top * 0.015;
+      img.style.transform = `translate3d(${offsetX}px, ${-offsetY}px, 0)`;
     });
+
+    ticking = false;
+  };
+
+  const queue = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(applyParallax);
+    }
+  };
+
+  // стартовые позиции ещё до первого скролла
+  const init = () => applyParallax();
+
+  window.addEventListener("scroll", queue, { passive: true });
+  window.addEventListener("resize", queue, { passive: true });
+  window.addEventListener("DOMContentLoaded", init);
+  window.addEventListener("load", init);
+  blocks.forEach(b => {
+    const img = b.querySelector("img");
+    if (img) img.addEventListener("load", init, { once: true });
   });
 }
 
@@ -122,3 +144,5 @@ document.querySelectorAll('.menu-list-link').forEach(link => {
         }
     });
 });
+
+
