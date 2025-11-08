@@ -31,27 +31,24 @@ updateImages(initialTheme);
 const blocks = document.querySelectorAll(".parallax-anim");
 
 if (blocks.length) {
-  const isMobile = () => window.innerWidth < 576;
+  const isMobile = () => window.innerWidth <= 768;
   let ticking = false;
 
   const applyParallax = () => {
     const vh = window.innerHeight;
 
     blocks.forEach(block => {
-      const img = block.querySelector("img");
-      if (!img) return;
-
-      if (isMobile()) {
-        img.style.transform = "translate3d(0,0,0)";
-        return;
-      }
-
       const rect = block.getBoundingClientRect();
       if (rect.bottom <= 0 || rect.top >= vh) return;
 
+      if (isMobile()) {
+        block.style.transform = "translate3d(0, 0, 0)";
+        return;
+      }
+
       const offsetY = rect.top * 0.03;
       const offsetX = rect.top * 0.015;
-      img.style.transform = `translate3d(${offsetX}px, ${-offsetY}px, 0)`;
+      block.style.transform = `translate3d(${offsetX}px, ${-offsetY}px, 0)`;
     });
 
     ticking = false;
@@ -64,7 +61,6 @@ if (blocks.length) {
     }
   };
 
-  // стартовые позиции ещё до первого скролла
   const init = () => applyParallax();
 
   window.addEventListener("scroll", queue, { passive: true });
@@ -76,6 +72,7 @@ if (blocks.length) {
     if (img) img.addEventListener("load", init, { once: true });
   });
 }
+
 
 document.addEventListener("DOMContentLoaded", () => {
   const animatedItems = document.querySelectorAll(
