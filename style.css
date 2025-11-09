@@ -851,6 +851,7 @@ header.moved {
   font-weight: 500;
   color: var(--text-color3);
   padding: 8px;
+  margin-top: -10px;
   background-color: var(--main-container);
   border-radius: 4px;
   max-width: 128px;
@@ -888,14 +889,15 @@ header.moved {
   gap: 4px;
   border-radius: 140px;
   border: 1px solid var(--accent-color);
-  padding: 5px 9px;
+  padding: 4px 9px;
   color: var(--text-color);
-  transform: rotate(4deg);
-  font-size: 11px;
+  transform: rotate(14deg);
+  font-size: 11.2px;
   width: fit-content;
   font-family: bounded;
   margin-left: auto;
-  margin-bottom: 14px;
+  margin-bottom: 28px;
+  margin-right: -10px;
 }
 .advantages-item-2 .advantages__block-1 img{
   width: 14px;
@@ -908,8 +910,8 @@ header.moved {
   border: 1px solid var(--accent-color);
   padding: 9px 15px;
   color: var(--text-color);
-  transform: rotate(-4deg);
-  font-size: 14px;
+  transform: rotate(-12deg);
+  font-size: 16px;
   width: fit-content;
   font-family: bounded;
   margin-bottom: 14px;
@@ -923,10 +925,10 @@ header.moved {
   gap: 4px;
   border-radius: 140px;
   border: 1px solid var(--accent-color);
-  padding: 5px 9px;
+  padding: 7px 9px;
   color: var(--text-color);
-  transform: rotate(4deg);
-  font-size: 11px;
+  transform: rotate(9deg);
+  font-size: 11.2px;
   width: fit-content;
   font-family: bounded;
   margin-left: auto;
@@ -944,12 +946,12 @@ header.moved {
 .advantages-item-2 .advantages__icon-2{
   position: absolute;
   top: 30%;
-  right: -20px;
+  right: -30px;
 }
 .advantages-item-2 .advantages__icon-3{
   position: absolute;
   bottom: 0%;
-  left: 15%;
+  left: 22%;
 }
 .advantages-item-6 .advantages__block-1{
   font-size: 12px;
@@ -1086,9 +1088,9 @@ header.moved {
 .possibilities-item-3 .possibilities__item{
   font-size: 16px;
   line-height: 20px;
-  color: var(--text-color);
+  color: #fff;
   padding: 6px 10px;
-  background-color: var(--bg-color);
+  background-color: #090911;
   border-radius: 4px;
 }
 .possibilities-item-3 .possibilities__item.hide{
@@ -1390,6 +1392,7 @@ header.moved {
   border: 1px solid var(--border);
   align-items: center;
   margin-top: 60px;
+  overflow-x: clip;
 }
 .work-slide-info {
   padding: 42px 20px;
@@ -1559,9 +1562,7 @@ header.moved {
 .work__button img{
   filter: brightness(.2);
 }
-.swiper-slide{
-  overflow: hidden;
-}
+
 .work-slide-2 .work__mockup{
   background-color: unset;
   width: 100%;
@@ -1626,7 +1627,7 @@ header.moved {
   text-align: left;
   font-size: 9.7px;
   line-height: 13px;
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-color);
   margin-bottom: 4px;
 }
@@ -2480,6 +2481,9 @@ header.moved {
   }
   .possibilities-info {
     margin-top: auto;
+  }
+  .possibilities-item-3 .possibilities-info{
+    max-width: 230px;
   }
 
   .areas-cart-img {
