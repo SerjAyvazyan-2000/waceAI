@@ -947,6 +947,7 @@ header.moved {
   position: absolute;
   top: 30%;
   right: -30px;
+  width: 40px;
 }
 .advantages-item-2 .advantages__icon-3{
   position: absolute;
@@ -1394,6 +1395,15 @@ header.moved {
   margin-top: 60px;
   overflow-x: clip;
 }
+.work__welcome{
+  font-size: 15.5px;
+  line-height: 18.7px;
+  font-weight: 400;
+  color: var(--text-color);
+  position: relative;
+  left: 23%;
+  margin-bottom: 53px;
+}
 .work-slide-info {
   padding: 42px 20px;
 }
@@ -1591,7 +1601,7 @@ header.moved {
   margin-left: 70px;
 }
 .work-slide-2 .work__mockup{
-  top: 140px;
+  top: 60px;
 }
 .work-slide-2 .work__block p{
   font-size: 12px;
@@ -2256,7 +2266,15 @@ header.moved {
   .mobile-text-wrap {
     display: block;
   }
-
+  .possibilities-item-2 .possibilities__block-1{
+    margin-left: 65px;
+  }
+  .possibilities-item-2 .possibilities__block-3{
+    margin-left: 120px;
+  }
+  .possibilities-item-2 .possibilities__block-2{
+    margin-left: 0;
+  }
   .footer {
     border-radius: 10px 10px 0 0;
   }
