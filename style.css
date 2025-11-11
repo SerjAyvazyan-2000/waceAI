@@ -1615,7 +1615,7 @@ header.moved {
   line-height: 16px;
   max-width: 224px;
 }
-.work-slide-2 .work__block button {
+.work-slide-2 .work__block a {
   padding: 9px 14px;
   border-radius: 4px;
   display: flex;
